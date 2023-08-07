@@ -21,8 +21,8 @@ This demo will build a DynamoDB source connector since currently a fully-managed
 ## Setup
 This demo will use a supermarket grocery list with 10k items that include customer datapoints like their name, category of industry, city, order date, profit, sales, etc. We chose this dataset because is a fairly large dataset, and supermarket use cases are very common amongst Confluent customers due to the need to have real-time visibility on their customers and orders. I have already uploaded the csv into DynamoDB and for speed sake, you can upload this csv into s3 and click on Import to DynamoDB to import the entire dataset immediately.
 
-## Spin up S3 bucket, upload csv of retail datapoints and then import csv to DynamoDB
-1. Create S3 bucket and upload csv
+## Spin up S3 bucket, upload Supermart_Grocery_Sales.csv and then import to DynamoDB
+1. Create S3 bucket and upload Supermart_Grocery_Sales.csv
    
 2. Go to DynamoDB and click Import from S3
    ```
@@ -30,7 +30,7 @@ This demo will use a supermarket grocery list with 10k items that include custom
    Assign Partition key: Order ID
    ```
    
-3. Go into the newly created DynamoDB table to do two important actions: enable streams and create tags.
+3. Go into the newly created DynamoDB table to do: enable streams and create tags.
    
 4. Go to Export and Streams tabs to enable DynamoDB streams which captures item-level changes in the table, and push the changes to a DynamoDB stream.
    
