@@ -27,19 +27,26 @@ This demo will use a supermarket grocery list with 10k items that include custom
 2. Go to DynamoDB and click Import from S3
    ```
    Assign DynamoDB table name: Supermarket_dynamodb
+   
    Assign Partition key: Order ID
    ```
    
 3. Go into the newly created DynamoDB table to do: enable streams and create tags.
    
-4. Go to Export and Streams tabs to enable DynamoDB streams which captures item-level changes in the table, and push the changes to a DynamoDB stream.
+4. Go to Export and Streams tabs to enable DynamoDB streams.
+
+   > Captures item-level changes in the table, and push the changes to a DynamoDB stream.
    
-5. Go to Addtional Settings tab to create tags to help the custom-connector (in Confluent Cloud) identify this specific table.
+5. Go to Addtional Settings tab to create tags.
+   
+   > Helps the custom-connector (in Confluent Cloud) identify this specific table.
+   
     ```
-    Create first tag
-        -key = environment, value = dev
-     Create second tag
-        -key = datelake-ingest, value = null/empty
+    Create first tag:
+        key = environment, value = dev
+    
+    Create second tag:
+        key = datelake-ingest, value = null/empty
     ```
     
 ## Spin up Confluent Cloud Cluster in AWS in one of the following regions that Custom Connector is currently available in:  
@@ -72,15 +79,17 @@ https://docs.confluent.io/cloud/current/cp-component/connect-cloud-config.html
 2. Put in Connector plugin details for: 
     ```
     Connector plugin name: DynamoDB Custom connector
+    
     Connector plugin description: DynamoDB Custom connector for dev
+    
     Connector class: com.trustpilot.connector.dynamodb.DynamoDBSourceConnector
     ```
 3. Choose Connector type: Source
    
 4. Click Select connector archive to upload the newly built kafka-connect-dynamodb.zip file
-   ```
-   As reminder, the zip file should include: assets. docs, etc, lib and the manifest.json
-   ```
+  
+   > As reminder, the zip file should include: assets. docs, etc, lib and the manifest.json
+  
 5. Click Submit
 
 
@@ -102,7 +111,9 @@ https://docs.confluent.io/cloud/current/cp-component/connect-cloud-config.html
 4. Assign networking endpoints:
     ```
     streams.dynamodb.us-region-2.amazonaws.com:443
+    
     tagging.us-region-2.amazonaws.com:443
+    
     dynamodb.us-region-2.amazonaws.com
     ```
     
@@ -121,24 +132,31 @@ https://docs.confluent.io/cloud/current/cp-component/connect-cloud-config.html
 
 ### Monitor the connector in CC
 
-1. In Topics, click on auto-generated connector logs topic that captures connector code logs and worker process log messages
+1. In Topics, click on auto-generated connector logs topic.
+    
+   > Captures connector code logs and worker process log messages
  
-2. Go back to DynamoDB Custom connector and see the Log tab to identify the real-time actions of the connector (auto-creating topic, search for tables w/ datalake-ingest tag, search for changed Dynamodb table, etc) and any potential errors (authentication, configuration, networking etc)
+2. Go back to DynamoDB Custom connector and see the Log tab
+   > Identifies the real-time actions of the connector (auto-creating topic, search for tables w/ datalake-ingest tag, search for changed Dynamodb table, etc) and any potential errors (authentication, configuration, networking etc)
  
-3. See Metrics tab to monitor Worker Health Metrics, allowing users to view the following metrics: CPU Load, Memory Free, Production and Consumption
+3. See Metrics tab to monitor Worker Health Metrics, allowing users to view the following metrics:
+   ```
+   CPU Load, Memory Free, Production and Consumption
+   ```
+   
 ------------------------------------------------------------------------------------------------------------
 ## Teardown
-```
-Delete dynamodb source custom connector
-```
+
+> Delete dynamodb source custom connector
+
 1. Go back to DynamoDB Custom connector and click Delete
-```
-Delete dynamodb source plugin
-```
+
+> Delete dynamodb source plugin
+
 2. While in Connectors, go to Edit plugin and click Delete
-```
-Delete CC cluster
-```
+
+> Delete CC cluster
+
 3. Go to Cluster Settings and click Delete Cluster
 
 ------------------------------------------------------------------------------------------------------------
