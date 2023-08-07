@@ -24,20 +24,20 @@ This demo will build a DynamoDB source connector since currently a fully-managed
 -This demo will use a supermarket grocery list with 10k items that include customer datapoints like their name, category of industry, city, order date, profit, sales, etc. We chose this dataset because is a fairly large dataset, and supermarket use cases are very common amongst Confluent customers due to the need to have real-time visibility on their customers and orders.
 -I have already uploaded the csv into DynamoDB and for speed sake, you can upload this csv into s3 and click on Import to DynamoDB to import the entire dataset immediately.
 
-# spin up s3 bucket, upload csv of retail datapoints and then import csv to dynamodb
-1. create s3 bucket and upload csv
-2. go to dynamodb and click Import from S3
-    2a. assign dynamodb table name: Supermarket_dynamodb
-    2b. assign Partition key: Order ID
-3. go into the newly created dynamodb table to do two important actions: enable streams and create tags
-4. go to Export and Streams tabs to enable DynamoDB streams which captures item-level changes in the table, and push the changes to a DynamoDB stream. 
-5. go to Addtional Settings tab to create tags to help the custom-connector (in Confluent Cloud) identify this specific table
-    5a. create first tag
+# Spin up s3 bucket, upload csv of retail datapoints and then import csv to dynamodb
+1. Create s3 bucket and upload csv
+2. Go to dynamodb and click Import from S3
+    2a. Assign dynamodb table name: Supermarket_dynamodb
+    2b. Assign Partition key: Order ID
+3. Go into the newly created dynamodb table to do two important actions: enable streams and create tags
+4. Go to Export and Streams tabs to enable DynamoDB streams which captures item-level changes in the table, and push the changes to a DynamoDB stream. 
+5. Go to Addtional Settings tab to create tags to help the custom-connector (in Confluent Cloud) identify this specific table
+    5a. Create first tag
         -key = environment, value = dev
-    5b. create second tag
+    5b. Create second tag
         -key = datelake-ingest, value = null/empty
 
-# spin up confluent cloud cluster in AWS in one of the following regions that Custom Connector is currently available in: us-east-1, us-east-2, us-west-2, eu-west-1, & eu-central-1
+# Spin up confluent cloud cluster in AWS in one of the following regions that Custom Connector is currently available in: us-east-1, us-east-2, us-west-2, eu-west-1, & eu-central-1
 
 ------------------------------------------------------------------------------------------------------------
 # Build the custom connector
@@ -52,59 +52,59 @@ This demo will build a DynamoDB source connector since currently a fully-managed
 ------------------------------------------------------------------------------------------------------------
 ## Demo
 
-# self-managed: set up local connect worker with Confluent Platform in Docker
+# Self-managed: set up local connect worker with Confluent Platform in Docker
 https://docs.confluent.io/cloud/current/cp-component/connect-cloud-config.html 
 
-# fully-managed: add connector plugin
+# Fully-managed: add connector plugin
 1. In Confluent Cloud, go to Connectors
     1a. go to Add plugin
 
-# go to dynamodb public github repo and download zip files and upload https://github.com/trustpilot/kafka-connect-dynamodb
-2. put in Connector plugin details for: 
+# Go to dynamodb public github repo and download zip files and upload https://github.com/trustpilot/kafka-connect-dynamodb
+2. Put in Connector plugin details for: 
     -Connector plugin name: DynamoDB Custom connector
     -Connector plugin description: DynamoDB Custom connector for dev
     -Connector class: com.trustpilot.connector.dynamodb.DynamoDBSourceConnector
-3. choose Connector type: Source
-4. click Select connector archive to upload kafka-connect-dynamodb.zip file
-5. click Submit
+3. Choose Connector type: Source
+4. Click Select connector archive to upload kafka-connect-dynamodb.zip file
+5. Click Submit
 
-# spin up dynamodb source custom connector
-1. go to Connectors   
-2. click Filter by Deployment: Custom and choose DynamoDB Custom connector
-3. assign key-value pairs or JSON:
+# Spin up dynamodb source custom connector
+1. Go to Connectors   
+2. Click Filter by Deployment: Custom and choose DynamoDB Custom connector
+3. Assign key-value pairs or JSON:
     -{
         "aws.access.key.id": "ABCD",
         "aws.region": "us-region-X",
         "aws.secret.key": "123",
         "kafka.topic.prefix": "supermarket-customer"
     }
-4. assign networking endpoints:
+4. Assign networking endpoints:
     -streams.dynamodb.us-region-2.amazonaws.com:443
     -tagging.us-region-2.amazonaws.com:443
     -dynamodb.us-region-2.amazonaws.com
-5. assign Task: 1
-6. assign Connector name: DynamoDB Custom connector
+5. Assign Task: 1
+6. Assign Connector name: DynamoDB Custom connector
 
-# view the retail topic in CC
-1. go to Topics
-2. click on dynamodb_retail topic
-3. view messages to see the messages in real time and can also open the drop-down menu to see the schemas
+# View the retail topic in CC
+1. Go to Topics
+2. Click on dynamodb_retail topic
+3. View messages to see the messages in real time and can also open the drop-down menu to see the schemas
 
-# monitor the connector in CC
-1. in Topics, click on auto-generated connector logs topic that captures connector code logs and worker process log messages
-2. go back to DynamoDB Custom connector and see the Log tab to identify the real-time actions of the connector (auto-creating topic, search for tables w/ datalake-ingest tag, search for changed Dynamodb table, etc) and any potential errors (authentication, configuration, networking etc)
-3. see Metrics tab to monitor Worker Health Metrics, allowing users to view the following metrics: CPU Load, Memory Free, Production and Consumption
+# Monitor the connector in CC
+1. In Topics, click on auto-generated connector logs topic that captures connector code logs and worker process log messages
+2. Go back to DynamoDB Custom connector and see the Log tab to identify the real-time actions of the connector (auto-creating topic, search for tables w/ datalake-ingest tag, search for changed Dynamodb table, etc) and any potential errors (authentication, configuration, networking etc)
+3. See Metrics tab to monitor Worker Health Metrics, allowing users to view the following metrics: CPU Load, Memory Free, Production and Consumption
 
 ## Teardown
-# delete dynamodb source custom connector
-1. go back to DynamoDB Custom connector and click Delete
+# Delete dynamodb source custom connector
+1. Go back to DynamoDB Custom connector and click Delete
 
-# delete dynamodb source plugin
-1. go back to Connectors, Add Connectors, hover over DynamoDB Custom connector plugin and click Edit plugin
+# Delete dynamodb source plugin
+1. Go back to Connectors, Add Connectors, hover over DynamoDB Custom connector plugin and click Edit plugin
 2. Click delete 
 
-# delete CC cluster
-1. go to Cluster Settings and click Delete Cluster
+# Delete CC cluster
+1. Go to Cluster Settings and click Delete Cluster
 
 ------------------------------------------------------------------------------------------------------------
 # Conclusion
