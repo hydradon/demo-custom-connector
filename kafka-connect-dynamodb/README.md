@@ -21,7 +21,7 @@ Unfortunately, this connector is built with gradle, so we'll manually generate
 the package. Copy the jar file containing the build output to the 
 `lib` directory of the package manifest:
 
-  `cp build/libs/*.jar ../../../../kafka-connect-dynamodb/kafka-connect-dynamodb/lib`
+  `cp build/libs/*.jar ../../../../connector/kafka-connect-dynamodb/lib`
 
 Then zip the whole thing up:
 
