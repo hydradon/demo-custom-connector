@@ -1,4 +1,4 @@
-The kafka-connect-dynamodb subdirectory is intended to hold the package manifest we produce
+The `kafka-connect-dynamodb` subdirectory is intended to hold the package manifest we produce
 after building the connector. It contains the required directory structure and a working
 `manifest.json` file. 
 
