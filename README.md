@@ -20,7 +20,7 @@ This demo will build a DynamoDB source connector since currently a fully-managed
 ## Setup
 This demo will use a supermarket grocery list with 10k items that include customer datapoints like their name, category of industry, city, order date, profit, sales, etc. We chose this dataset because is a fairly large dataset, and supermarket use cases are very common amongst Confluent customers due to the need to have real-time visibility on their customers and orders. I have already uploaded the csv into DynamoDB and for simplicity sake, you can upload this csv into s3 and click on Import to DynamoDB to import the entire dataset immediately.
 
-## Spin up S3 bucket, upload Supermart_Grocery_Sales.csv and then import to DynamoDB
+### Populate DynamoDB
 1. Create S3 bucket and upload Supermart_Grocery_Sales.csv
    
 2. Go to DynamoDB and click Import from S3
@@ -48,7 +48,8 @@ This demo will use a supermarket grocery list with 10k items that include custom
         key = datelake-ingest, value = null/empty
     ```
     
-## Spin up Confluent Cloud Cluster in AWS in one of the following regions that Custom Connector is currently available in:  
+### Spin up Confluent Cloud Cluster 
+  > in AWS in one of the following regions that Custom Connector is currently available in:  
     us-east-1, us-east-2, us-west-2, eu-west-1, & eu-central-1
 ------------------------------------------------------------------------------------------------------------
 ## Build the custom connector
@@ -68,8 +69,9 @@ This demo will use a supermarket grocery list with 10k items that include custom
 ------------------------------------------------------------------------------------------------------------
 ## Demo
 
-### Self-managed: set up local connect worker with Confluent Platform in Docker
-https://docs.confluent.io/cloud/current/cp-component/connect-cloud-config.html 
+### Self-managed Connector Setup 
+  > set up local connect worker with Confluent Platform in Docker
+  https://docs.confluent.io/cloud/current/cp-component/connect-cloud-config.html 
 
 
 ### Fully-managed: Set up Connector Plugin
