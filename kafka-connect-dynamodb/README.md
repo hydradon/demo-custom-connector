@@ -1,10 +1,12 @@
+## Component Archive Example
+
 This subdirectory is intended to hold the component archive we produce
 after building the connector. It contains the required directory structure and a working
 `manifest.json` file representing the `kafka-connect-dynamodb` connector from Trustpilot. 
 
-Building the Component Archive:
+## Build
 
-1. clone the connector source code and build it.
+Clone the connector source code and build it.
 ```
   mkdir sandbox
   git clone https://github.com/trustpilot/kafka-connect-dynamodb
@@ -22,12 +24,14 @@ For connectors built with maven, there's a maven target which generates these pa
 Unfortunately, this connector is built with gradle, so we'll manually generate
 the package. 
 
-2. Copy the jar file containing the build output to the 
+## Package
+
+Copy the jar file containing the build output to the 
 `lib` directory of the component archive:
 
   `cp build/libs/*.jar ../../../../connector/kafka-connect-dynamodb/lib`
 
-3. Then zip the whole thing up:
+Then zip the whole thing up:
 
 ```
   cd ../../../../kafka-connect-dynamodb/
