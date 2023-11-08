@@ -176,3 +176,4 @@ This demo will use a supermarket grocery list with 10k items that include custom
 ------------------------------------------------------------------------------------------------------------
 ## Conclusion
 Custom connectors allow you to run any Kafka connector on Confluent Cloud without needing to manage its underlying infrastructure. They add flexibility by providing a managed solution for your own connectors, enabling teams to seamlessly integrate with any data system using any Kafka Connect plugin from any source without needing code changes. Teams will also be able to ensure healthy and highly available custom connectors by leveraging detailed built-in logs and metrics for the connectors and Connect workers. Custom connectors eliminate the operational burdens of manually provisioning connector resources and perpetually managing Connect clusters so that you build managed streaming data pipelines faster.
+
